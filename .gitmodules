@@ -6,7 +6,7 @@
 	url = https://github.com/fruityloops1/nnheaders
 [submodule "lib/odyssey"]
 	path = lib/odyssey
-	url = https://github.com/odyssey-modding/odyssey
+	url = https://github.com/MonsterDruide1/OdysseyDecomp
 [submodule "lib/imgui"]
 	path = lib/imgui
 	url = https://github.com/ocornut/imgui

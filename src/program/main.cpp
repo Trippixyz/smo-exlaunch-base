@@ -6,11 +6,6 @@
 #include "hook/trampoline.hpp"
 #include "lib.hpp"
 #include "nn/fs.h"
-#include "pe/Hacks/MenuDPadDisable.h"
-#include "pe/Hacks/PracticeHacks.h"
-#include "pe/Menu/Menu.h"
-#include "pe/Menu/UserConfig.h"
-#include "pe/Util/Offsets.h"
 #include "program/imgui_nvn.h"
 #include <sead/filedevice/seadFileDeviceMgr.h>
 
@@ -26,32 +21,17 @@ HOOK_DEFINE_TRAMPOLINE(HakoniwaSequenceInit) { static void Callback(HakoniwaSequ
 void HakoniwaSequenceInit::Callback(HakoniwaSequence* thisPtr, const al::SequenceInitInfo& info)
 {
     Orig(thisPtr, info);
-
-    pe::getMenuHeap() = sead::ExpHeap::create(1024 * 1024 * 1, "MenuHeap", al::getSequenceHeap(), 8, sead::ExpHeap::cHeapDirection_Forward, false);
-
-    sead::ScopedCurrentHeapSetter setter(pe::getMenuHeap());
-    pe::Menu::createInstance(nullptr);
 }
 
 HOOK_DEFINE_TRAMPOLINE(HakoniwaSequenceUpdate) { static void Callback(HakoniwaSequence * thisPtr); };
 void HakoniwaSequenceUpdate::Callback(HakoniwaSequence* thisPtr)
 {
     Orig(thisPtr);
-
-    sead::ScopedCurrentHeapSetter setter(pe::getMenuHeap());
-    auto* menu = pe::Menu::instance();
-    if (menu) {
-        al::Scene* scene = *reinterpret_cast<al::Scene**>(reinterpret_cast<u8*>(thisPtr) + 0xb0);
-        menu->update(scene);
-    }
 }
 
 static void drawDbgGui()
 {
-    sead::ScopedCurrentHeapSetter setter(pe::getMenuHeap());
-    auto* menu = pe::Menu::instance();
-    if (menu)
-        menu->draw();
+    
 }
 
 extern "C" void exl_main(void* x0, void* x1)
@@ -61,12 +41,9 @@ extern "C" void exl_main(void* x0, void* x1)
     using Patcher = exl::patch::CodePatcher;
     using namespace exl::patch::inst;
 
-    FileDeviceMgrCtor::InstallAtOffset(pe::offsets::FileDeviceMgrCtorHookLocation);
-    HakoniwaSequenceInit::InstallAtOffset(pe::offsets::HakoniwaSequenceInitHookLocation);
-    HakoniwaSequenceUpdate::InstallAtOffset(pe::offsets::HakoniwaSequenceUpdate);
-
-    pe::initMenuDPadDisableHooks();
-    pe::installPracticeHacks();
+    //FileDeviceMgrCtor::InstallAtOffset(pe::offsets::FileDeviceMgrCtorHookLocation);
+    //HakoniwaSequenceInit::InstallAtOffset(pe::offsets::HakoniwaSequenceInitHookLocation);
+    //HakoniwaSequenceUpdate::InstallAtOffset(pe::offsets::HakoniwaSequenceUpdate);
 
     nvnImGui::InstallHooks();
     nvnImGui::addDrawFunc(drawDbgGui);
