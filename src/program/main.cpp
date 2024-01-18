@@ -1,3 +1,4 @@
+#include "al/Library/Controller/JoyPadUtil.h"
 #include "al/Library/Memory/MemorySystem.h"
 #include "al/Library/Sequence/Sequence.h"
 #include "diag/assert.hpp"
@@ -34,6 +35,12 @@ static void drawDbgGui()
     
 }
 
+HOOK_DEFINE_REPLACE(DisableATrigger) {
+    static bool Callback(s32 port) {
+        return false;
+    }
+};
+
 extern "C" void exl_main(void* x0, void* x1)
 {
     exl::hook::Initialize();
@@ -44,6 +51,8 @@ extern "C" void exl_main(void* x0, void* x1)
     //FileDeviceMgrCtor::InstallAtOffset(pe::offsets::FileDeviceMgrCtorHookLocation);
     //HakoniwaSequenceInit::InstallAtOffset(pe::offsets::HakoniwaSequenceInitHookLocation);
     //HakoniwaSequenceUpdate::InstallAtOffset(pe::offsets::HakoniwaSequenceUpdate);
+
+    DisableATrigger::InstallAtFuncPtr(al::isPadTriggerA);
 
     nvnImGui::InstallHooks();
     nvnImGui::addDrawFunc(drawDbgGui);

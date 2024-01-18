@@ -68,18 +68,29 @@ add_executable(subsdk9 ${SOURCES_ASM} ${SOURCES_C} ${SOURCES_CXX} ${IMGUI_SOURCE
 #target_embed_binaries(subsdk9 "${PROJECT_SOURCE_DIR}/data/SFMonoSquare-Regular.otf")
 
 ## Prepare subsdk ld
+if(GAME_VERSION EQUAL 100)
+  set(SUBSDK_LD_PATH ${CMAKE_CURRENT_SOURCE_DIR}/module/subsdk9.ld)
+  execute_process(COMMAND uname OUTPUT_VARIABLE uname)
+  if (uname MATCHES "^MINGW")
+    string(REGEX REPLACE "^/([a-zA-Z])/" "\\1:/" SUBSDK_LD_PATH "${SUBSDK_LD_PATH}")
+  endif ()
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/module/subsdk9.specs.template ${CMAKE_CURRENT_BINARY_DIR}/subsdk9.specs)
+
 set(SUBSDK_LD_PATH ${CMAKE_CURRENT_SOURCE_DIR}/module/subsdk9.ld)
 set(SYMS_PATH "${CMAKE_CURRENT_SOURCE_DIR}/syms/${GAME_VERSION}")
 
-execute_process(
-    COMMAND bash -c "find ${SYMS_PATH} -type f -name '*.sym' -exec cat {} + > ${CMAKE_BINARY_DIR}/syms.ld"
-)
+else()
+  execute_process(
+      COMMAND bash -c "find ${SYMS_PATH} -type f -name '*.sym' -exec cat {} + > ${CMAKE_BINARY_DIR}/syms.ld"
+  )
 
-execute_process(COMMAND uname OUTPUT_VARIABLE uname)
-if (uname MATCHES "^MINGW")
-  string(REGEX REPLACE "^/([a-zA-Z])/" "\\1:/" SUBSDK_LD_PATH "${SUBSDK_LD_PATH}")
-endif ()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/module/subsdk9.specs.template ${CMAKE_CURRENT_BINARY_DIR}/subsdk9.specs)
+  execute_process(COMMAND uname OUTPUT_VARIABLE uname)
+  if (uname MATCHES "^MINGW")
+    string(REGEX REPLACE "^/([a-zA-Z])/" "\\1:/" SUBSDK_LD_PATH "${SUBSDK_LD_PATH}")
+  endif ()
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/module/subsdk9.specs.template ${CMAKE_CURRENT_BINARY_DIR}/subsdk9.specs)
+
+endif()
 
 ## Build nso & generate npdm
 add_nso_target_subsdk(subsdk9)
