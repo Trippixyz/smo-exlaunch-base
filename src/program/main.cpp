@@ -1,4 +1,4 @@
-#include "al/Library/Controller/JoyPadUtil.h"
+#include "al/Library/Controller/InputFunction.h"
 #include "al/Library/Memory/MemorySystem.h"
 #include "al/Library/Sequence/Sequence.h"
 #include "diag/assert.hpp"
@@ -30,6 +30,8 @@ extern "C" void exl_main(void* x0, void* x1)
 
     nvnImGui::InstallHooks();
     nvnImGui::addDrawFunc(drawDbgGui);
+
+    DisableATrigger::InstallAtFuncPtr(al::isPadTriggerA);
 }
 
 extern "C" NORETURN void exl_exception_entry()

@@ -1,4 +1,4 @@
-#include "al/Library/Controller/JoyPadUtil.h"
+#include "al/Library/Controller/InputFunction.h"
 
 namespace al {
 
