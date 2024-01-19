@@ -834,7 +834,8 @@ void renderDrawData(ImDrawData* drawData)
 
             // im not exactly sure this scaling is a good solution,
             // for some reason imgui clipping coords are relative to 720p instead of whatever I set for disp size.
-            ImVec2 origRes(1280.0f, 720.0f);
+            // TRIPPIEDIT I really dunno if this is good
+            ImVec2 origRes(1600.0f, 900.0f); // used to be (1280.0f, 720.0f);
             ImVec2 newRes = io.DisplaySize; // (1600.0f, 900.0f);
 
             ImVec4 clipRect = ImVec4((cmd.ClipRect.x / origRes.x) * newRes.x,
