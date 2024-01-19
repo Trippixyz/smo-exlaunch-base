@@ -10,7 +10,7 @@ def copy_files_to_directories(json_file, source_folder, filenames):
     except FileNotFoundError:
         # If the file is not found, create a default JSON file
         print(f"JSON file not found. Creating a default JSON file: {json_file}")
-        directories = ["default_directory"]  # Default directory list
+        directories = []  # Default directory list
         with open(json_file, 'w') as file:
             json.dump(directories, file)
     except Exception as e:
