@@ -21,4 +21,4 @@ jobs:
           path: |
             build/subsdk9
             build/subsdk9.nss
-            build/subsdk9.npdm
+            build/main.npdm
