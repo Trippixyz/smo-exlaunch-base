@@ -40,3 +40,4 @@ compile_commands.json
 build.sh
 .vscode/
 .clangd/
+exefs_directories.json
