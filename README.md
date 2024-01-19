@@ -1,9 +1,10 @@
-# smo-practice-2
+# smo-exlaunch-base
 
-Revamp of SMO practice mod
+A semi-working base repository to use for Super Mario Odyssey.
 
 # Credits
 
+- [Fruityloops](https://github.com/fruityloops1)
 - [LunaKit](https://github.com/amethyst-szs/smo-lunakit)
 - [Tischel/smo-practice](https://github.com/Tischel/smo-practice)
 - [MonsterDruide1/smo-practice](https://github.com/MonsterDruide1/smo-practice)
