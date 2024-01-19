@@ -15,7 +15,7 @@ SECTIONS
   PROVIDE(__start__ = 0x0);
   . = __start__;
   __code_start__ = .;
-  __main_start = . - 0x01bce000;
+  __main_start = . - 0x02C63000; /* Placeholder for offset */
 
   /* App code */
   .text : {
