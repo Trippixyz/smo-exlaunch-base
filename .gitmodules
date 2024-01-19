@@ -4,10 +4,10 @@
 [submodule "NintendoSDK"]
 	path = lib/NintendoSDK
 	url = https://github.com/fruityloops1/nnheaders
-[submodule "lib/odyssey"]
-	path = lib/odyssey
-	url = https://github.com/MonsterDruide1/OdysseyDecomp
 [submodule "lib/imgui"]
 	path = lib/imgui
 	url = https://github.com/ocornut/imgui
 	branch = docking
+[submodule "lib/odyssey"]
+	path = lib/odyssey
+	url = https://github.com/MonsterDruide1/OdysseyDecomp
