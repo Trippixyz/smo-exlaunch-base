@@ -41,6 +41,8 @@ set (INCLUDE_DIRS
   ${PROJECT_SOURCE_DIR}/src/
   ${PROJECT_SOURCE_DIR}/src/lib 
   ${PROJECT_SOURCE_DIR}/include
+  ${PROJECT_SOURCE_DIR}/include/symlinks
+  ${PROJECT_SOURCE_DIR}/include/symlinks/al
   ${PROJECT_SOURCE_DIR}/lib/sead/include
   ${PROJECT_SOURCE_DIR}/lib/NintendoSDK/include
   ${PROJECT_SOURCE_DIR}/lib/NintendoSDK/include/nvn
